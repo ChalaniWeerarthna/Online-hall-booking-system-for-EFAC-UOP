@@ -84,7 +84,7 @@
                             <div class="form-group row">
                                 <label for="firstname" class="col-md-2 col-form-label">Username</label>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" id="usernameB" name="usernameB" required= 'required' placeholder="Username" value = "<?php echo $usernameB;?>">
+                                    <input type="text" class="form-control" id="usernameB" name="usernameB" placeholder="Username" value = "<?php echo $usernameB;?>">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -96,7 +96,7 @@
                             <div class="form-group row">
                                 <label for="lastname" class="col-md-2 col-form-label">Purpose</label>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" id="purpose" name="purpose" required= 'required' placeholder="Type Here" value = "<?php echo $purpose;?>">
+                                    <input type="text" class="form-control" id="purpose" name="purpose" placeholder="Type Here" value = "<?php echo $purpose;?>">
                                 </div>
                             </div>
                             
