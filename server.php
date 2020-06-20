@@ -293,22 +293,39 @@ if (isset($_POST['edit'])) {
           global $db;
           $q3 = mysqli_query($db,"ROLLBACK");
         }
-          begin(); // transaction begins
+          
 /////////////////////////////////////////////////////////
-           $querypend=mysqli_query($db,"INSERT INTO pendings (Username,purpose, Hall_name,startTime, endTime,check_date) VALUES ('$usernameB','$purpose','$hallB', '$startTimeB','$endTimeB','$dateB')");
 
-           // $query=mysqli_query($db,"INSERT INTO booked_lecture_hall (Username,purpose, Hall_name,startTime, endTime,check_date) VALUES ('$usernameB','$purpose','$hallB', '$startTimeB','$endTimeB','$dateB')");
-           if(!$querypend){
-            rollback(); // transaction rolls back
-            exit;
-           }else{
+           $sql=mysqli_query($db,"select UserName from user_registration  where UserName='$usernameB'");
+           $return=mysqli_num_rows($sql);
+    //if $return returns true value it means user's email already exists
+          if($return){
+            begin(); // transaction begins
+            $querypend=mysqli_query($db,"INSERT INTO pendings (Username,purpose, Hall_name,startTime, endTime,check_date) VALUES ('$usernameB','$purpose','$hallB', '$startTimeB','$endTimeB','$dateB')");
+            if(!$querypend){
+              rollback(); // transaction rolls back
+              exit;
+             }else{
+            
             commit(); // transaction is committed
-            echo "<script type='text/javascript'>alert('Your request was sent! It will be approved immediately.');
-            window.location='welcome.php';
-            </script>";
+            //  $querypend=mysqli_query($db,"INSERT INTO pendings (Username,purpose, Hall_name,startTime, endTime,check_date) VALUES ('$usernameB','$purpose','$hallB', '$startTimeB','$endTimeB','$dateB')");
+              echo "<script type='text/javascript'>alert('Your request was sent! It will be approved immediately.');
+              window.location='welcome.php';
+              </script>";
+            }
+          
+          
+          }else{
+            $msg_1="<font color='red'> Invalied Username!</font>";
+            array_push($errors,$msg_1);
+
+          }
+         // $querypend=mysqli_query($db,"INSERT INTO pendings (Username,purpose, Hall_name,startTime, endTime,check_date) VALUES ('$usernameB','$purpose','$hallB', '$startTimeB','$endTimeB','$dateB')");
+           // $query=mysqli_query($db,"INSERT INTO booked_lecture_hall (Username,purpose, Hall_name,startTime, endTime,check_date) VALUES ('$usernameB','$purpose','$hallB', '$startTimeB','$endTimeB','$dateB')");
+           
         }
  
-       }
+       
 
        
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -354,6 +371,10 @@ if (isset($_POST['edit'])) {
          }
          
        }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 
